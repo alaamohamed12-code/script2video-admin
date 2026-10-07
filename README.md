@@ -1,2 +1,3 @@
-# script2video-admin
-Script2Video admin panel
+# Script2Video admin
+
+لوحة تحكم الاشتراكات.
