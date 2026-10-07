@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Script2Video — لوحة التحكم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css?v=1">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">Script<span>2</span>Video <small>لوحة التحكم</small></div>
+        <div class="topbar-actions hidden" id="topActions">
+            <button class="btn btn-ghost" id="btnChangePass">🔑 تغيير كلمة مرور الأدمن</button>
+            <button class="btn btn-ghost" id="btnLogout">🚪 خروج</button>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <!-- Login -->
+        <section class="card login-card" id="loginView">
+            <h2>تسجيل دخول الأدمن</h2>
+            <p class="muted">أدخل كلمة مرور الأدمن لفتح لوحة التحكم.</p>
+            <form id="loginForm" autocomplete="off">
+                <input type="password" id="adminPass" class="input" placeholder="كلمة مرور الأدمن" required>
+                <button type="submit" class="btn btn-primary" id="btnLogin">دخول</button>
+            </form>
+            <div class="msg" id="loginMsg"></div>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="hidden" id="dashView">
+            <div class="toolbar">
+                <div class="stats" id="stats"></div>
+                <div class="toolbar-right">
+                    <input type="search" class="input input-sm" id="searchBox" placeholder="بحث باسم المستخدم...">
+                    <button class="btn btn-primary" id="btnAddUser">➕ مستخدم جديد</button>
+                </div>
+            </div>
+            <div class="status-line" id="statusLine"></div>
+            <div class="card table-card">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>المستخدم</th>
+                            <th>الحالة</th>
+                            <th>البدء (القاهرة)</th>
+                            <th>الانتهاء (القاهرة)</th>
+                            <th>المتبقي</th>
+                            <th>الأقسام</th>
+                            <th>إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersBody"></tbody>
+                </table>
+                <div class="empty hidden" id="emptyState">لا يوجد مستخدمون بعد — اضغط «مستخدم جديد».</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- User editor -->
+    <div class="modal hidden" id="userModal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3 id="userModalTitle">مستخدم جديد</h3>
+                <button class="icon-btn" data-close>✕</button>
+            </div>
+            <form id="userForm" autocomplete="off">
+                <div class="grid2">
+                    <label>اسم المستخدم
+                        <input type="text" id="fUsername" class="input" required maxlength="64">
+                    </label>
+                    <label>كلمة المرور
+                        <div class="pass-row">
+                            <input type="text" id="fPassword" class="input" required minlength="4" maxlength="128">
+                            <button type="button" class="btn btn-ghost btn-sm" id="btnCopyPass" title="نسخ">📋</button>
+                        </div>
+                    </label>
+                    <label>موعد البدء (بتوقيت القاهرة)
+                        <input type="datetime-local" id="fStart" class="input" required>
+                    </label>
+                    <label>موعد الانتهاء (بتوقيت القاهرة)
+                        <input type="datetime-local" id="fEnd" class="input" required>
+                    </label>
+                </div>
+                <div class="quick-dur">
+                    <span class="muted">مدة سريعة من البدء:</span>
+                    <button type="button" class="chip" data-dur="7">7 أيام</button>
+                    <button type="button" class="chip" data-dur="30">30 يوماً</button>
+                    <button type="button" class="chip" data-dur="90">90 يوماً</button>
+                    <button type="button" class="chip" data-dur="365">سنة</button>
+                </div>
+                <fieldset class="sections-box">
+                    <legend>الأقسام المسموحة
+                        <button type="button" class="link-btn" id="btnAllSections">تحديد الكل</button>
+                        <button type="button" class="link-btn" id="btnNoSections">إلغاء الكل</button>
+                    </legend>
+                    <div class="sections-grid" id="sectionsGrid"></div>
+                    <p class="muted small">«الحسابات» و«المعرض» و«الإعدادات» متاحة لكل المستخدمين دائماً. «الإنتاج» يُضاف تلقائياً مع أي قسم محتوى.</p>
+                </fieldset>
+                <label class="check-row">
+                    <input type="checkbox" id="fSuspended"> إيقاف مؤقت (يُمنع من الدخول دون حذف بياناته أو مواعيده)
+                </label>
+                <div class="msg" id="userFormMsg"></div>
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-ghost" data-close>إلغاء</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveUser">💾 حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change admin password -->
+    <div class="modal hidden" id="passModal">
+        <div class="modal-box modal-sm">
+            <div class="modal-head">
+                <h3>تغيير كلمة مرور الأدمن</h3>
+                <button class="icon-btn" data-close>✕</button>
+            </div>
+            <form id="passForm" autocomplete="off">
+                <label>كلمة المرور الحالية <input type="password" id="pOld" class="input" required></label>
+                <label>كلمة المرور الجديدة <input type="password" id="pNew" class="input" required minlength="10"></label>
+                <label>تأكيد كلمة المرور الجديدة <input type="password" id="pNew2" class="input" required minlength="10"></label>
+                <p class="muted small">⚠️ لا يمكن استرجاع كلمة المرور إذا ضاعت. استخدم 10 أحرف على الأقل تجمع حروفاً وأرقاماً ورموزاً.</p>
+                <div class="msg" id="passMsg"></div>
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-ghost" data-close>إلغاء</button>
+                    <button type="submit" class="btn btn-primary" id="btnSavePass">تغيير</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="busy hidden" id="busy"><div class="spinner"></div><div id="busyText">جاري الحفظ...</div></div>
+
+    <script src="admin.js?v=1"></script>
+</body>
+</html>
