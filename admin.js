@@ -18,7 +18,7 @@ const DAY = 86400000;
 
 // Section ids are shared with the desktop app (modules/licensing/sections.py).
 const SECTIONS = [
-    { id: "broll", label: "📢 محتوى وثائقي B-Roll", content: true },
+    { id: "broll", label: "📢 قصص دينية", content: true },
     { id: "montage", label: "🎞️ مونتاج وثائقي" },
     { id: "kids_songs", label: "🎵 محتوى أغاني أطفال", content: true },
     { id: "anime2d", label: "🎬 2D Anime Style", content: true },
@@ -28,6 +28,7 @@ const SECTIONS = [
     { id: "dark_vox", label: "🎧 Dark Vox Style", content: true },
     { id: "studio", label: "🎞️ Parallax Studio", content: true },
     { id: "motion", label: "☁️ Motion Story" },
+    { id: "channel", label: "📈 إدارة القناة" },
     { id: "production", label: "🎬 الإنتاج" },
     { id: "social", label: "📱 السوشيال ميديا" },
     { id: "shorts", label: "🗓️ جدولة شورتس" },
