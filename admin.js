@@ -29,6 +29,7 @@ const SECTIONS = [
     { id: "studio", label: "🎞️ Parallax Studio", content: true },
     { id: "motion", label: "☁️ Motion Story" },
     { id: "channel", label: "📈 إدارة القناة" },
+    { id: "editor", label: "✂️ المحرر" },
     { id: "production", label: "🎬 الإنتاج" },
     { id: "social", label: "📱 السوشيال ميديا" },
     { id: "shorts", label: "🗓️ جدولة شورتس" },
