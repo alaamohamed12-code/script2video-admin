@@ -30,6 +30,7 @@ const SECTIONS = [
     { id: "motion", label: "☁️ Motion Story" },
     { id: "channel", label: "📈 إدارة القناة" },
     { id: "editor", label: "✂️ المحرر" },
+    { id: "voice", label: "🎙️ الفويس أوفر" },
     { id: "production", label: "🎬 الإنتاج" },
     { id: "social", label: "📱 السوشيال ميديا" },
     { id: "shorts", label: "🗓️ جدولة شورتس" },
